@@ -5,12 +5,20 @@ import numpy                        # Installed via blend-modes
 if __name__ == "__main__":
 
         # Open Images 
-        im_bg = Image.open("Demo_01\BG.png")
-        im_fg = Image.open("Demo_01\FG.png")
+        im_bg = Image.open("Demo_02\BG.jpg")
+        im_fg = Image.open("Demo_02\FG.jpg")
 
         # Convert to RGBA
         im_bg = im_bg.convert("RGBA")
         im_fg = im_fg.convert("RGBA")
+
+        # Resize Foreground Image
+        tmp_bg = Image.new('RGBA', (2464, 1856))
+        
+        im_fg = im_fg.resize((778, 972))
+        paste_position = (810, 568) 
+        tmp_bg.paste(im_fg, paste_position, im_fg)
+        im_fg = tmp_bg
 
         # Convert to Numpy arrays of floats
         im_bg_arr = numpy.array(im_bg).astype(float)
